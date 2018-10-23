@@ -91,12 +91,13 @@ int main(int argc, char *argv[])
         }
 
 	Linklist_Init(ip_table,10000);
-
+    uint32_t Y=0;
         while (trace_read_packet(trace,packet)>0) {
+                Y++;
                 per_packet(packet);
         }
 
-	printf("Total = %d\n", Linklist_Distinct(ip_table));
+	printf("distinct packet count = %d\n", Linklist_Distinct(ip_table));
 	Linklist_Destroy(ip_table);
 
         if (trace_is_err(trace)) {
@@ -104,7 +105,7 @@ int main(int argc, char *argv[])
                 libtrace_cleanup(trace, packet);
                 return 1;
         }
-
+    printf("Total Count = %u\n",Y);
         libtrace_cleanup(trace, packet);
         return 0;
 }
